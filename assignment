@@ -1,0 +1,36 @@
+def sortByCost (arr):
+	n = len(patients)
+	for i in range(n):
+		for j in range(n - 1 - i):
+			if patients[j][2] > patients[j + 1][2]:
+				patients[j], patients[j + 1] = patients[j + 1], patients[j]
+
+	return patients
+
+def patientScheduling(patients, slots):
+	assignment = [0] * slots
+	totalCost = [-1] * slots
+
+	for i in range(len(patients)):
+		patient = patients[i][0]
+		slot = patients[i][1] - 1
+		cost = patients[i][2]
+		if not assignment[slot] and patient not in assignment:
+			assignment[slot] = patient
+			totalCost[slot] = cost
+
+	for i in range(len(assignment)):
+		print("O paciente {} sera alocado no horario {}".format(assignment[i], i+1))
+	print("Custo total: {}".format(sum(totalCost)))
+
+patients =      [['1', 1, 60],
+				 ['1', 2, 45],
+		 		 ['1', 3, 60],
+				 ['2', 1, 60],
+				 ['2', 2, 15],
+				 ['2', 3, 60],
+				 ['3', 1, 15],
+				 ['3', 2, 1000],
+				 ['3', 3, 45]]
+
+patientScheduling(sortByCost(patients), 3)
